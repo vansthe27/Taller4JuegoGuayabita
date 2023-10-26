@@ -16,11 +16,11 @@ public class Guayabita {
 
     public static void main(String[] args) {
         Guayabita juego = new Guayabita();
-        int opcion1 = juego.mostrarMenu();
+        int opcion = juego.mostrarMenu();
 
-        if (opcion1 == 1) {
+        if (opcion == 1) {
             juego.jugar();
-        } else if (opcion1 == 2) {
+        } else if (opcion == 2) {
             juego.mostrarInstrucciones();
         }
     }
