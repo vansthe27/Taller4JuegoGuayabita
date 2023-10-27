@@ -30,9 +30,9 @@ public class Guayabita {
         int apuestaMinima = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la apuesta mínima:"));
 
         for (int i = 0; i < numJugadores; i++) {
-                String nombre = JOptionPane.showInputDialog("Ingrese el nombre del jugador " + (i + 1) + ":");
-                int dinero = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dinero inicial para " + nombre + ":"));
-                jugadores.add(new Jugador(nombre, dinero));
+            String nombre = JOptionPane.showInputDialog("Ingrese el nombre del jugador " + (i + 1) + ":");
+            int dinero = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dinero inicial para " + nombre + ":"));
+            jugadores.add(new Jugador(nombre, dinero));
         }
 
         pote = numJugadores * apuestaMinima;
@@ -60,22 +60,26 @@ public class Guayabita {
                     } else if (nuevoResultadoDado <= resultadoDado) {
                         pote += montoApostado;
                     }
-                    } else {
-                        jugador.perderApuesta();
-                    }
+                } else {
+                    jugador.perderApuesta();
                 }
-
-                jugadores.removeIf(jugador -> !jugador.tieneDinero());
             }
 
-            mostrarResultadoFinal();
+            jugadores.removeIf(jugador -> !jugador.tieneDinero());
         }
 
+        mostrarResultadoFinal();
+    }
 
     public int mostrarMenu() {
-        String[] opciones = { "Jugar", "Ver Instrucciones" };
-        return JOptionPane.showOptionDialog(null, "¿Qué desea hacer?", "Bienvenidos al juego de la Guayabita",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]) + 1;
+        String[] opciones = { "Jugar", "Ver Instrucciones", "Salir" };
+        int seleccion = JOptionPane.showOptionDialog(null, "¿Qué desea hacer?", "Bienvenidos al juego de la Guayabita",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+        if (seleccion == -1) {
+            System.exit(0);
+        }
+        return seleccion + 1;
     }
 
     public void mostrarInstrucciones() {
@@ -86,8 +90,14 @@ public class Guayabita {
                 "4. El jugador que saque un número mayor en la segunda tirada gana el dinero del pote.\n" +
                 "5. El juego continúa hasta que no quede dinero en el pote o todos los jugadores estén fuera.\n";
 
-        JOptionPane.showMessageDialog(null, instrucciones, "Instrucciones", JOptionPane.INFORMATION_MESSAGE);
+        String[] opciones = { "Jugar" };
+        int seleccion = JOptionPane.showOptionDialog(null, instrucciones, "Instrucciones", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
+
+        if (seleccion == 0) {
+            jugar();
+        }
     }
+
 
     public void mostrarResultadoFinal() {
         StringBuilder mensaje = new StringBuilder("Resultados finales:\n");
