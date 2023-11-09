@@ -14,17 +14,6 @@ public class Guayabita {
         dado = new Dado();
     }
 
-    public static void main(String[] args) {
-        Guayabita juego = new Guayabita();
-        int opcion = juego.mostrarMenu();
-
-        if (opcion == 1) {
-            juego.jugar();
-        } else if (opcion == 2) {
-            juego.mostrarInstrucciones();
-        }
-    }
-
     public void jugar() {
         int numJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de jugadores:"));
         int apuestaMinima = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la apuesta mínima:"));
